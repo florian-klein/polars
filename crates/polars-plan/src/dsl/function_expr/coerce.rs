@@ -2,7 +2,7 @@ use polars_core::prelude::*;
 
 pub fn as_struct(cols: &[Column]) -> PolarsResult<Column> {
     let Some(fst) = cols.first() else {
-        polars_bail!(nyi = "turning no columns as_struct");
+        return Ok(StructChunked::from_columns(PlSmallStr::EMPTY, 0, &[])?.into_column())
     };
 
     let mut min_length = usize::MAX;

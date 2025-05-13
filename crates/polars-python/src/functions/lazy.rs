@@ -91,11 +91,6 @@ pub fn arg_where(condition: PyExpr) -> PyExpr {
 #[pyfunction]
 pub fn as_struct(exprs: Vec<PyExpr>) -> PyResult<PyExpr> {
     let exprs = exprs.to_exprs();
-    if exprs.is_empty() {
-        return Err(PyValueError::new_err(
-            "expected at least 1 expression in 'as_struct'",
-        ));
-    }
     Ok(dsl::as_struct(exprs).into())
 }
 

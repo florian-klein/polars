@@ -1301,7 +1301,7 @@ impl FunctionExpr {
             F::Clip { .. } => FunctionOptions::elementwise(),
             #[cfg(feature = "dtype-struct")]
             F::AsStruct => FunctionOptions::elementwise().with_flags(|f| {
-                f | FunctionFlags::PASS_NAME_TO_APPLY | FunctionFlags::INPUT_WILDCARD_EXPANSION
+                f | FunctionFlags::PASS_NAME_TO_APPLY | FunctionFlags::INPUT_WILDCARD_EXPANSION | FunctionFlags::ALLOW_EMPTY_INPUTS
             }),
             #[cfg(feature = "top_k")]
             F::TopK { .. } => FunctionOptions::groupwise(),

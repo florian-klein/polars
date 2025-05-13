@@ -961,9 +961,8 @@ def test_struct_out_nullability_from_arrow() -> None:
     assert res.to_dicts() == [{"a": 1.0}, {"a": None}]
 
 
-def test_empty_struct_raise() -> None:
-    with pytest.raises(ValueError):
-        pl.struct()
+def test_empty_struct_creation_works() -> None:
+    _ = pl.struct()
 
 
 def test_named_exprs() -> None:

@@ -320,7 +320,7 @@ impl PhysicalExpr for ApplyExpr {
         if self.flags.contains(FunctionFlags::ALLOW_RENAME) {
             self.eval_and_flatten(&mut inputs)
         } else {
-            let in_name = inputs[0].name().clone();
+            let in_name = inputs.first().map_or(PlSmallStr::EMPTY, |f| f.name().clone());
             Ok(self.eval_and_flatten(&mut inputs)?.with_name(in_name))
         }
     }

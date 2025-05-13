@@ -347,7 +347,6 @@ impl AExpr {
                 ..
             } => {
                 let fields = func_args_to_fields(input, ctx, agg_list)?;
-                polars_ensure!(!fields.is_empty(), ComputeError: "expression: '{}' didn't get any inputs", options.fmt_str);
                 let out = output_type.get_field(ctx.schema, ctx.ctx, &fields)?;
 
                 if options.flags.contains(FunctionFlags::RETURNS_SCALAR) {
@@ -364,7 +363,6 @@ impl AExpr {
                 options,
             } => {
                 let fields = func_args_to_fields(input, ctx, agg_list)?;
-                polars_ensure!(!fields.is_empty(), ComputeError: "expression: '{}' didn't get any inputs", function);
                 let out = function.get_field(ctx.schema, ctx.ctx, &fields)?;
 
                 if options.flags.contains(FunctionFlags::RETURNS_SCALAR) {

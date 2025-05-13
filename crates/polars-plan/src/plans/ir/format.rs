@@ -512,21 +512,29 @@ impl Display for ExprIRDisplay<'_> {
             Function {
                 input, function, ..
             } => {
-                let fst = self.with_root(&input[0]);
-                fst.fmt(f)?;
-                if input.len() >= 2 {
-                    write!(f, ".{function}({})", self.with_slice(&input[1..]))
+                if input.is_empty() {
+                    write!(f, "{function}()")
                 } else {
-                    write!(f, ".{function}()")
+                    let fst = self.with_root(&input[0]);
+                    fst.fmt(f)?;
+                    if input.len() >= 2 {
+                        write!(f, ".{function}({})", self.with_slice(&input[1..]))
+                    } else {
+                        write!(f, ".{function}()")
+                    }
                 }
             },
             AnonymousFunction { input, options, .. } => {
-                let fst = self.with_root(&input[0]);
-                fst.fmt(f)?;
-                if input.len() >= 2 {
-                    write!(f, ".{}({})", options.fmt_str, self.with_slice(&input[1..]))
+                if input.is_empty() {
+                    write!(f, "{}()", options.fmt_str)
                 } else {
-                    write!(f, ".{}()", options.fmt_str)
+                    let fst = self.with_root(&input[0]);
+                    fst.fmt(f)?;
+                    if input.len() >= 2 {
+                        write!(f, ".{}({})", options.fmt_str, self.with_slice(&input[1..]))
+                    } else {
+                        write!(f, ".{}()", options.fmt_str)
+                    }
                 }
             },
             Slice {

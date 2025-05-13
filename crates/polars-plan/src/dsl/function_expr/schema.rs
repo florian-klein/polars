@@ -101,7 +101,7 @@ impl FunctionExpr {
             }),
             #[cfg(feature = "dtype-struct")]
             AsStruct => Ok(Field::new(
-                fields[0].name().clone(),
+                fields.first().map_or(PlSmallStr::EMPTY, |f| f.name().clone()),
                 DataType::Struct(fields.to_vec()),
             )),
             #[cfg(feature = "top_k")]
